@@ -3,10 +3,12 @@ package me.cunzai.plugin.newplayerbroadcast.database
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.Platform
-import taboolib.common.platform.PlatformSide
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
-import taboolib.module.database.*
+import taboolib.module.database.ColumnOptionSQL
+import taboolib.module.database.ColumnTypeSQL
+import taboolib.module.database.Table
+import taboolib.module.database.getHost
 
 object MySQLHandler {
 
@@ -27,7 +29,7 @@ object MySQLHandler {
                 id()
             }
 
-            add ("new_player_name") {
+            add("new_player_name") {
                 type(ColumnTypeSQL.VARCHAR, 64) {
                     options(ColumnOptionSQL.KEY)
                 }
@@ -47,7 +49,7 @@ object MySQLHandler {
 
     val newPlayerTable by lazy {
         Table("new_player_record", host) {
-            add ("player_name") {
+            add("player_name") {
                 type(ColumnTypeSQL.VARCHAR, 64) {
                     options(ColumnOptionSQL.PRIMARY_KEY)
                 }
