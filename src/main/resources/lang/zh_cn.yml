@@ -1,0 +1,6 @@
+new_player_broadcast: "&a新玩家&e {0} &a加入了服务器, 点击消息欢迎并获取奖励"
+new_player_broadcast_hover: "&a点击领取奖励"
+claimed: "&c你已经领取过 &e{0}&c 的迎新奖励"
+no_new_player: "&c没有找到新玩家 &e{0}"
+# 支持papi
+new_player_welcome: "&a{0}: 欢迎 {1} 加入服务器"
