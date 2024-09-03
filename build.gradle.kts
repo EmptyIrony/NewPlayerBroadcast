@@ -17,6 +17,10 @@ taboolib {
         contributors {
             name("存在")
         }
+
+        dependencies {
+            name("LuckPerms").with("bungee")
+        }
     }
     version { taboolib = "6.1.1-beta17" }
 }

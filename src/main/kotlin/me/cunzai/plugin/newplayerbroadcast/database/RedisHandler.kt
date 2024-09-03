@@ -31,27 +31,27 @@ object RedisHandler {
 
     @Awake(LifeCycle.ENABLE)
     fun i() {
-        redisConnection.connection().use { connection ->
-            connection.subscribe("new_player_broadcast", patternMode = false) {
-                val playerName = get<NewPlayerJoined>(ignoreConstructor = true).name
-                Components.text(
-                    console().asLangText("new_player_broadcast", playerName).colored()
-                ).hoverText(console().asLangText("new_player_broadcast_hover"))
-                    .clickRunCommand("/newPlayer welcome $playerName")
-                    .broadcast()
-            }
+        redisConnection.connection().apply {
+            subscribe("new_player_broadcast", patternMode = false) {
 
-            connection.subscribe("new_player_welcome", patternMode = false) {
-                val text = get<NewPlayerWelcome>(ignoreConstructor = true).text
-                Bukkit.broadcastMessage(text)
+                Components.text(
+                    console().asLangText("new_player_broadcast", message).colored()
+                ).hoverText(console().asLangText("new_player_broadcast_hover"))
+                    .clickRunCommand("/newPlayer welcome $message")
+                    .broadcast()
             }
         }
 
+        redisConnection.connection().apply {
+            subscribe("new_player_welcome", patternMode = false) {
+                Bukkit.broadcastMessage(message)
+            }
+        }
     }
 
     fun handleNewPlayerJoin(playerName: String) {
         redisConnection.connection().use { connection ->
-            connection.publish("new_player_broadcast", NewPlayerJoined(playerName))
+            connection.publish("new_player_broadcast", playerName)
         }
     }
 
@@ -62,9 +62,5 @@ object RedisHandler {
             connection.publish("new_player_welcome", text)
         }
     }
-
-    class NewPlayerWelcome(val text: String)
-
-    class NewPlayerJoined(val name: String)
 
 }

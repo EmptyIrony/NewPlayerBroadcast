@@ -6,10 +6,7 @@ import me.cunzai.plugin.newplayerbroadcast.database.RedisHandler
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import taboolib.common.platform.command.CommandBody
-import taboolib.common.platform.command.CommandHeader
-import taboolib.common.platform.command.mainCommand
-import taboolib.common.platform.command.subCommand
+import taboolib.common.platform.command.*
 import taboolib.common.platform.function.submit
 import taboolib.common.platform.function.submitAsync
 import taboolib.expansion.createHelper
@@ -18,7 +15,7 @@ import taboolib.platform.util.sendLang
 @CommandHeader("newPlayer")
 object NewPlayerCommands {
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE, permission = "command.welcome")
     val welcome = subCommand {
         dynamic("玩家名字") {
             execute<Player> { sender, _, argument ->
