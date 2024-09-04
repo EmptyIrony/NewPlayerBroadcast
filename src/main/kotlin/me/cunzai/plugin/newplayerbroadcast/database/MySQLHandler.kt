@@ -24,7 +24,7 @@ object MySQLHandler {
     }
 
     val claimedTable by lazy {
-        Table("new_player_record", host) {
+        Table("new_player_claim_record", host) {
             add {
                 id()
             }
@@ -53,6 +53,10 @@ object MySQLHandler {
                 type(ColumnTypeSQL.VARCHAR, 64) {
                     options(ColumnOptionSQL.PRIMARY_KEY)
                 }
+            }
+
+            add("broadcast") {
+                type(ColumnTypeSQL.INT)
             }
 
             add("timestamp") {

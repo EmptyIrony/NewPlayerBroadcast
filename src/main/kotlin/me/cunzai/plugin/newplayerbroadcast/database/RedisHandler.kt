@@ -33,11 +33,10 @@ object RedisHandler {
     fun i() {
         redisConnection.connection().apply {
             subscribe("new_player_broadcast", patternMode = false) {
-
                 Components.text(
                     console().asLangText("new_player_broadcast", message).colored()
                 ).hoverText(console().asLangText("new_player_broadcast_hover"))
-                    .clickRunCommand("/newPlayer welcome $message")
+                    .clickRunCommand("/newplayer welcome $message")
                     .broadcast()
             }
         }
@@ -50,16 +49,15 @@ object RedisHandler {
     }
 
     fun handleNewPlayerJoin(playerName: String) {
-        redisConnection.connection().use { connection ->
-            connection.publish("new_player_broadcast", playerName)
-        }
+        redisConnection.connection().publish("new_player_broadcast", playerName)
     }
 
     fun handleWelcome(player: Player, playerName: String) {
-        redisConnection.connection().use { connection ->
-            val text = console().asLangText("new_player_welcome", player.name, playerName)
-                .replacePlaceholder(player)
-            connection.publish("new_player_welcome", text)
+        val text = console().asLangText("new_player_welcome", player.name, playerName)
+            .replacePlaceholder(player)
+
+        redisConnection.connection().apply {
+            publish("new_player_welcome", text)
         }
     }
 

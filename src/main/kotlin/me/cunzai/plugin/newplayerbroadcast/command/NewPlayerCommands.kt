@@ -6,12 +6,15 @@ import me.cunzai.plugin.newplayerbroadcast.database.RedisHandler
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import taboolib.common.platform.Platform
+import taboolib.common.platform.PlatformSide
 import taboolib.common.platform.command.*
 import taboolib.common.platform.function.submit
 import taboolib.common.platform.function.submitAsync
 import taboolib.expansion.createHelper
 import taboolib.platform.util.sendLang
 
+@PlatformSide(Platform.BUKKIT)
 @CommandHeader("newPlayer")
 object NewPlayerCommands {
 

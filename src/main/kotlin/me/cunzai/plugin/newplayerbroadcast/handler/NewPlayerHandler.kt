@@ -45,12 +45,13 @@ object NewPlayerHandlerBukkit {
                 MySQLHandler.newPlayerTable.workspace(MySQLHandler.datasource) {
                     select {
                         where {
-                            "player_name" eq player.name
+                            "player_name" eq player.name and ("broadcast" eq 0)
                         }
                     }
                 }.firstOrNull {
                     MySQLHandler.newPlayerTable.workspace(MySQLHandler.datasource) {
-                        delete {
+                        update {
+                            set("broadcast", 1)
                             where {
                                 "player_name" eq player.name
                             }
